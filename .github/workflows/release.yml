@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build release zip
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File release.ps1
+
+      - name: Upload zip to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/dsh-wechat-link-v*.zip
+          generate_release_notes: true

@@ -1,0 +1,6 @@
+# dsh bundle patch: inserts the wechat-link plugin into a profile's layer stack.
+- insert:
+    - id: dsh-wechat-link
+      name: 'dsh-wechat-link'
+      config:
+        workspace: 'D:\DSH\G2'

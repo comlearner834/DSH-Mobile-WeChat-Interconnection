@@ -1,0 +1,60 @@
+{
+  "name": "dsh-wechat-link",
+  "version": "0.1.0",
+  "description": "DSH 手机微信互联插件：基于腾讯 iLink Bot 协议，扫码绑定本人微信后远程遥控本机 DSH Agent（执行 cmd/git/读写项目文件），支持 /status /workspace /stop /unbind 指令。独立插件，不修改 DSH 核心代码。",
+  "license": "MIT",
+  "author": "comlearner834",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/comlearner834/dsh-wechat-link.git"
+  },
+  "homepage": "https://github.com/comlearner834/dsh-wechat-link",
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "wechat",
+    "weixin",
+    "ilink",
+    "remote-control"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "install:win": "powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1",
+    "test": "node test/test.js && node test/extract-test.js && node test/smoke-client.js && node test/render-check.js"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-web-react"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.1.0-rc.4"
+  }
+}
